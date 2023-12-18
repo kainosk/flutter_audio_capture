@@ -25,6 +25,8 @@ public class AudioCapture {
   public func startSession(bufferSize: UInt32, sampleRate: Double, cb: @escaping (_ buffer: Array<Float>) -> Void) throws {
   
     let inputNode = audioEngine.inputNode
+    inputNode.isVoiceProcessingBypassed = true // added
+    try! inputNode.setVoiceProcessingEnabled(true)
     let inputFormat  = inputNode.inputFormat(forBus: 0)
     try! audioEngine.start()
     inputNode.installTap(onBus: 0,
